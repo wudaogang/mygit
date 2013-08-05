@@ -18,6 +18,7 @@ if(!is_file(dirname(__FILE__).'/data/install.lock')) {
     exit('<a href="install.php">Unsure whether the system of Modoer has been installed or not.</a><br /><br />If it has already been installed,under the folder of ./data , please create a new empty file named as "install.lock".');
 }
 
+
 //application init
 require dirname(__FILE__).'/core/init.php';
 if($_G['cfg']['index_module'] && !isset($_GET['m']) && !isset($_GET['act'])) {
