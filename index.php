@@ -52,6 +52,7 @@ if($m && $m != 'index') {
         //page name
         define('SCRIPTNAV', 'index');
         //load template
+        
         include template('modoer_index');
     } else {
         http_404();

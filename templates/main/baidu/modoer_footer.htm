@@ -1,0 +1,28 @@
+{LF}
+<div id="footer">
+    <!--{eval $foot_menus = $_CFG['foot_menuid'] ? $_G['loader']->variable('menu_' . $_CFG['foot_menuid']) : '';}-->
+    <div class="links">
+        <!--{loop $foot_menus $val}-->
+        <a href="{url $val[url]}"{if $val[target]} target="$val[target]"{/if}>$val[title]</a>&nbsp;|
+        <!--{/loop}-->
+        统计代码替换这里
+		<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4b361b405260550e2cf7d0bde9ad7bab' type='text/javascript'%3E%3C/script%3E"));
+</script>
+&nbsp;|
+	<a href="javascript://;" onclick="window.scrollTo(0,0);">TOP</a>
+    </div>
+    <div>
+    <span class="version"><a href='http://www.zzlin.com/' target='_blank'>漳州身边网</a></span> &copy; 2009-2012 <span class="product">【网站运营：<a href='http://www.me5u.com/' target='_blank'>蜜柚互联</a> | Powered by <a href='http://www.modoer.cn/' target='_blank'>Modoer2.5精华版</a>】</span><br />免责声明：站内会员言论仅代表个人观点，并不代表本站同意其观点，本站不承担由此引起的法律责任。
+    </div>
+    <div class="bottom">
+        <a href='http://www.zzbay.com/' target='_blank'>漳州湾</a> <!--{if $_CFG['icpno']}--><a href="http://www.miibeian.gov.cn/" target="_blank">$_CFG[icpno]</a><!--{/if}-->$sitedebug
+    </div>
+</div>
+<!--{if DEBUG}-->
+{print $_G['db']->debug_print();}
+{print $_G['loader']->debug_print();}
+<!--{/if}-->
+</body>
+</html>

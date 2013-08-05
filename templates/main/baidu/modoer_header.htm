@@ -1,0 +1,100 @@
+<!--{eval
+    if(SCRIPTNAV != 'index'):
+        $_HEAD[title] .= $_G['cfg']['titlesplit'] . $_G['cfg']['sitename'];
+    endif;
+    if(!$_HEAD['keywords']):
+        $_HEAD[keywords] = $_G['cfg']['meta_keywords'];
+    endif;
+    if(!$_HEAD['description']):
+        $_HEAD[description] = $_G['cfg']['meta_description'];
+    endif;
+}-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=$_G[charset]" />
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<title>$_HEAD[title]</title>
+<meta name="keywords" content="$_HEAD[keywords]" />
+<meta name="description" content="$_HEAD[description]" />
+<link rel="stylesheet" type="text/css" href="{URLROOT}/{$_G[tplurl]}css_common.css" />
+<link rel="stylesheet" type="text/css" href="{URLROOT}/{$_G[tplurl]}css_reset.css" />
+<link rel="stylesheet" type="text/css" href="{URLROOT}/{$_G[tplurl]}selectStyle.css" />
+<script type="text/javascript" src="{URLROOT}/data/cachefiles/config.js"></script>
+<script type="text/javascript">
+<!--{if !empty($MOD)}-->
+var mod = modules['{$MOD[flag]}'];
+<!--{/if}-->
+</script>
+<script type="text/javascript" src="{URLROOT}/static/javascript/jquery.js"></script>
+<script type="text/javascript" src="{URLROOT}/static/javascript/common.js"></script>
+<script type="text/javascript" src="{URLROOT}/{$_G[tplurl]}images/jquery.select.js"></script>
+
+<!--{if $_CFG[headhtml]}-->$_CFG[headhtml]<!--{/if}-->
+</head>
+<body>
+<!--{if SCRIPTNAV == 'index'}-->
+<style type="text/css">@import url("{URLROOT}/{$_G[tplurl]}css_index.css");</style>
+<!--{elseif SCRIPTNAV == 'assistant'}-->
+<style type="text/css">@import url("{URLROOT}/{$_G[tplurl]}css_assistant.css");</style>
+<!--{elseif !empty($MOD) && is_file(MUDDER_ROOT . $_G[tplurl] . 'css_' . $MOD['flag'] . '.css')}-->
+<style type="text/css">@import url("{URLROOT}/{$_G[tplurl]}css_{$MOD[flag]}.css");</style>
+<!--{/if}-->
+<script type="text/javascript" src="{URLROOT}/static/javascript/member.js"></script>
+<!--{if !empty($MOD) && $MOD['flag']!='member' && is_file(MUDDER_ROOT . 'static/javascript/' . $MOD['flag'] . '.js')}-->
+<script type="text/javascript" src="{URLROOT}/static/javascript/$MOD[flag].js"></script>
+<!--{/if}-->
+<div class="headtop">
+	<ul class="headtop_ul">
+    	<li class="htu_left">
+        	<div id="login_0">
+                本站与【<a href='http://www.zzbay.com/' target='_blank'>漳州湾</a>】账号互通 - <a href="{url member/login}">直接登录</a>|<a href="{url member/reg}">快速注册</a>
+            </div>
+            <div id="login_1" style="display:none;">
+                你好，<a href="{url member/index}" id="login_name"></a>[<a href="{url member/login/op/logout}">退出</a>]|<a 
+                href="{url member/index/ac/pm/folder/inbox}">短信箱</a><span id="login_newmsg" style="display:none;">(0)</span>|<a href="{url space}" target="_blank">个人空间</a>|<a href="{url member/index}">我的助手</a>|<a href="{url item/member/ac/subject_add}">商家入驻</a>
+            </div>
+            <div id="login_2" style="display:none;">
+                <span id="login_activation"></span>,<a href="{url ucenter/activation/auth/_activationauth_}" id="login_activation_a">您的帐号需要激活</a> [<a href="{url member/login/op/logout}">退出</a>]
+            </div>
+        </li>
+        <li class="htu_right"><a href="{url item/rss/catid/$catid}" target="_blank">RSS聚合</a>|<a href="javascript:;" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('$_CFG[siteurl]')">设为首页</a>|<a href="javascript:;" onclick="window.external.addFavorite('$_CFG[siteurl]','$_CFG[sitename]');">加入收藏</a></li>
+    </ul>
+</div>
+<div id="header">
+    <div class="mainmenu">
+        <div class="logo">
+            <a href="{url modoer/index}"><img src="{URLROOT}/static/images/logo.gif" alt="$_CFG[sitename]" title="$_CFG[sitename]"></a>
+        </div>
+        <div class="charmenu">
+           	<div class="search">
+        	<form method="get" action="{URLROOT}/index.php">
+        		<input type="hidden" name="act" value="search" />
+        		<input type="hidden" name="ordersort" value="addtime" />
+        		<input type="hidden" name="ordertype" value="desc" />
+        		<input type="hidden" name="searchsubmit" value="yes" />
+        		<select name="module_flag" class="commonselect">
+          			<option value="item"{if $MOD['flag']=='item'}selected="selected"{/if}>店铺</option>
+          			<option value="article"{if $MOD['flag']=='article'}selected="selected"{/if}>资讯</option>
+                    <option value="product"{if $MOD['flag']=='product'}selected="selected"{/if}>产品</option>
+          			<option value="coupon"{if $MOD['flag']=='coupon'}selected="selected"{/if}>优惠券</option>
+        		</select>
+        		<input type="text" name="keyword" value="" class="input" />
+        		<input type="submit" class="t_submit" value="搜索" />
+        	</form>
+        	<div class="advanced_search"><a href="{url item/search}">标签搜索</a> <a href="{url item/detail/random/1}" target="_blank">随便看看</a></div>
+    </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--{eval $main_menus = $_CFG['main_menuid'] ? $_G['loader']->variable('menu_' . $_CFG['main_menuid']) : '';}-->
+    <ul class="tabmenu">
+        <!--{loop $main_menus $val}-->
+        <li{if SCRIPTNAV==$val[scriptnav]} class="current"{/if}><a href="{url $val[url]}"{if $val[target]} target="$val[target]"{/if} onfocus="this.blur()">$val[title]</a></li>
+        <!--{/loop}-->
+		        <li class="menu_right"> <a href="http://www.zzbay.com/" target="_blank" title="漳州网上城市生活信息门户">漳州湾</a> <a href="{url item/member/ac/subject_add}">添加店铺</a></li>
+    </ul>
+    
+</div>
+<script type="text/javascript" src="{URLROOT}/static/javascript/login.js"></script>
+{LF}

@@ -19,6 +19,6 @@ $time',
   'regrule' => '这里填写新用户的注册协议！',
   'seccode_reg' => '0',
   'seccode_login' => '0',
-  'model_flag_7' => 'member',
+  'model_flag_3' => 'member',
 ); 
 ?>

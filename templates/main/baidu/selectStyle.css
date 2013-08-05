@@ -1,0 +1,17 @@
+/*body,div,ul,h4,li {margin:0; padding:0; border:none; list-style:none; font-size:1;} */
+/*下拉列表select的commonselect样式 配合jquery.select插件 */ 
+/* select style */ 
+.dropdown {outline:none;z-index:1;display:inline-block;*display:inline; position:absolute; top:5px; width:65px; left:6px; padding-left:10px;} 
+.dropdown * {-moz-user-select:none;} 
+.dropselectbox{float:left; position:absolute} 
+.overclass{ z-index:999} /* 对于IE下层定位问题的修正样式 */ 
+.dropdown h4{position:relative;cursor:default; text-indent:5px;text-align:left;display:block;overflow:visible; margin:0; height:28px;font:12px/28px Arial, Helvetica, sans-serif; border:0; background:none ;color:#000;padding-left:0px;} 
+.dropdown h4.over{border-color:#369;} 
+.dropdown h4.current{border-color:#003;} 
+.dropdown div {display:none;position:absolute; left:0px; top:0px;} 
+.dropdown span {position:absolute;top:4px; right:3px; background:url(ico.gif) no-repeat center; width:16px; height:14px;} 
+.dropdown ul{position:absolute;display:none;border:1px solid #E9D3AA; background:#F6ECD7;color:#8E867B;} 
+.dropdown ul li{text-indent:5px;background:#fff;height:19px;display:block;cursor:default;font:400 12px/19px Arial, Helvetica, sans-serif;text-align:left;} 
+.dropdown ul li.over{background:#F6ECD7; color:#000;} 
+/* select style */ 
+/* input style */ 

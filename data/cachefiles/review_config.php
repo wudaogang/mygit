@@ -13,6 +13,6 @@ return array (
   'scoretype' => '10',
   'decimalpoint' => '2',
   'seccode_review_guest' => '1',
-  'model_flag_6' => 'review',
+  'model_flag_5' => 'review',
 ); 
 ?>

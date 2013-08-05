@@ -21,7 +21,7 @@ return array (
 2|文字推荐(默认显示7条)
 3|图片推荐(默认显示3条)
 4|模块首页图片轮换(不宜过多)',
-  'jscache_flag' => '540',
-  'model_flag_5' => 'article',
+  'jscache_flag' => '654',
+  'model_flag_3' => 'article',
 ); 
 ?>

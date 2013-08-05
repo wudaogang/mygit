@@ -3,7 +3,7 @@
 return array (
   'siteclose' => '0',
   'icpno' => '',
-  'sitename' => 'Modoer点评系统',
+  'sitename' => '学会不难',
   'seccode' => '0',
   'useripaccess' => '',
   'adminipaccess' => '',
@@ -38,7 +38,7 @@ return array (
   'mapapi_charset' => '',
   'main_menuid' => '1',
   'closenote' => '正在升级，请稍后访问...',
-  'templateid' => '1',
+  'templateid' => '2',
   'foot_menuid' => '66',
   'console_seccode' => '0',
   'console_total' => '1',
@@ -50,8 +50,9 @@ return array (
   'watermark_postion' => '0',
   'picture_ext' => 'jpg jpeg png gif',
   'authkey' => 'Z7GJ564U078Y',
-  'siteurl' => 'http://localhost/moder',
-  'jscache_flag_area' => '210',
-  'model_flag_4' => 'modoer',
+  'siteurl' => 'http://localhost/git/mygit',
+  'jscache_flag_area' => '796',
+  'index_module' => 'index',
+  'model_flag_5' => 'modoer',
 ); 
 ?>

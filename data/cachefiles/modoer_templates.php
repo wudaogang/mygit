@@ -12,6 +12,15 @@ return array (
       'tpltype' => 'main',
       'bind' => '1',
     ),
+    2 => 
+    array (
+      'templateid' => '2',
+      'name' => '学会不难',
+      'directory' => 'xuehuibunan',
+      'copyright' => 'X',
+      'tpltype' => 'main',
+      'bind' => '0',
+    ),
   ),
 ); 
 ?>

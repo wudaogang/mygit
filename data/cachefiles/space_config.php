@@ -14,6 +14,6 @@ return array (
   'gbooks' => '10',
   'menuid' => '80',
   'space_menuid' => '80',
-  'model_flag_7' => 'space',
+  'model_flag_3' => 'space',
 ); 
 ?>

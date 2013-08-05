@@ -21,7 +21,7 @@ return array (
   'multi_upload_pic_num' => '10',
   'guestbook_min' => '10',
   'guestbook_max' => '50',
-  'jscache_flag' => '789',
-  'model_flag_1' => 'item',
+  'jscache_flag' => '37',
+  'model_flag_10' => 'item',
 ); 
 ?>

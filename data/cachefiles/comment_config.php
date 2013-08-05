@@ -13,6 +13,6 @@ return array (
   'comment_interval' => '5',
   'content_min' => '10',
   'content_max' => '200',
-  'model_flag_3' => 'comment',
+  'model_flag_4' => 'comment',
 ); 
 ?>

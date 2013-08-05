@@ -1,12 +1,12 @@
 //Modoer cache file
-//Created on 2013-07-29 23:21:37
+//Created on 2013-08-05 23:27:04
 
-var siteurl = 'http://localhost/moder';
+var siteurl = 'http://localhost/git/mygit';
 var charset = 'utf-8';
 var cookiepre = 'P3C4F_';
 var cookiepath = '/';
 var cookiedomain = '';
-var urlroot = '/moder';
+var urlroot = '/git/mygit';
 var rewrite_mod = '';
 
 var modules = new Array();

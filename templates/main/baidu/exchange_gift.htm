@@ -1,0 +1,36 @@
+<!--{eval 
+    $_HEAD['title'] = '奖品:'.$detail[name];
+}-->
+{template modoer_header}
+<div id="body">
+
+    <div id="gift_left" class="coup_bor">
+		<h1 class="title" style="font-size:20px; text-align:center; height:30px; line-height:30px; margin:15px auto;">$detail[name]</h1>
+        <div class="content">
+            <div class="i"><img src="{URLROOT}/$detail[picture]" alt="$detail[name]" />
+            
+           
+        <ul class="info">
+        	 <li class="t">发布时间：{date $detail[subject]}</li>
+            <li>人气：<span class="font_2">$detail[pageview]</span></li>
+            <li>所需金币：<span class="font_2">$detail[price]</span></li>
+            <li>当前库存：<span class="font_2">$detail[num]</span></li>
+            <li>已兑换：<span class="font_2">$detail[salevolume]</span></li>
+        </ul>
+        <div class="submit">
+            <a href="{url exchange/member/ac/exchange/giftid/$giftid}"><span>立即兑换</span></a>
+            <div class="clear"></div>
+        </div>
+            </div>
+            
+            <div class="c"><div class="area-title-bar clearfix">
+            	<H3><SPAN>详细介绍</SPAN></H3>
+                <div class="title-right"></div>
+        	</div>
+        	<p style="margin-top:15px;">$detail[description]</p></div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+</div>
+<!--{eval footer();}-->

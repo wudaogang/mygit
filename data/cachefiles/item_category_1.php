@@ -66,7 +66,7 @@ return array (
     'modelid' => '0',
     'review_opt_gid' => '1',
     'name' => '海鲜',
-    'total' => '0',
+    'total' => '1',
     'config' => '',
     'listorder' => '0',
     'enabled' => '1',

@@ -8,10 +8,17 @@ return array (
   array (
     0 => 
     array (
-      'title' => 'Modoer点评系统',
-      'link' => 'http://www.modoer.com',
+      'title' => '友情链接',
+      'link' => 'http://xuehuibunan.com',
       'logo' => '',
-      'des' => 'Modoer 是一款点评网站管理系统，采用 PHP+MYSQL 设计，开放全部源码',
+      'des' => '测试友情链接',
+    ),
+    1 => 
+    array (
+      'title' => '友情链接2',
+      'link' => 'http://xuehuibunan.com',
+      'logo' => '',
+      'des' => '学会不难',
     ),
   ),
 ); 

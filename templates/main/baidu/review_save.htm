@@ -1,0 +1,259 @@
+<!--{if !defined('IN_AJAX')}-->
+{template modoer_header}
+<script type="text/javascript" src="{URLROOT}/static/javascript/item.js"></script>
+<style type="text/css">
+.review_picture_upload { margin:5px 0; }
+.review_picture_op { float:left; text-align:center; width:110px; }
+.review_picture_op img { display:block; max-width:100px; max-height:100px; padding:1px; border:1px solid #ccc;
+    _width:expression(this.width > 100 ? 100 : true); _height:expression(this.height > 100 ? 100 : true); }
+</style>
+<script type="text/javascript">
+function start_search() {
+    if($('#idtype').val() == 'item_subject') {
+        search_subject('','keyword',item_subject_search_for_review);
+    } else {
+        alert('无法搜索未知的点评对象');
+    }
+}
+
+$(document).ready(function() {
+    if($('#keyword')[0] != null) {
+        $('#keyword').keydown(function(e) {
+            keynum = window.event ? e.keyCode : e.which;
+            if(keynum == 13) search_subject('','keyword', select_search);
+        });
+    }
+});
+</script>
+<div id="body">
+<div class="myhead"></div>
+<div class="mymiddle">
+    <div class="myleft">
+        <!--{template 'menu','member','member'}-->
+    </div>
+    <div class="myright">
+        <div class="myright_top"></div>
+        <div class="myright_middle">
+            <h3>
+                {if $ac=='edit'}编辑点评{else}添加点评{/if}
+                {if !$user->isLogin}(游客){/if}
+            </h3>
+<!--{/if}-->
+            <div class="mainrail" id="review_foot">
+            <!--{if $ac=='add' && !$id}-->
+                <table width="100%" cellspacing="0" cellpadding="0" class="maintable">
+                    <tr>
+                        <td width="100" align="right">点评对象名称：</td>
+                        <td width="*">
+                            <select id="idtype">
+                            <!--{loop $R->idtypes $key $val}-->
+                                <option value="$key" selected="selected">$val[name]</option>
+                            <!--{/loop}-->
+                            </select>
+                            <input type="text" name="keyword" id="keyword" class="t_input" size="30" />&nbsp;
+                            <span class="font_3">例如：集集小镇</font>&nbsp;
+                            <button type="button" class="btn" onclick="start_search();">搜索</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><div id="search_result" style="display:none;"></div></td>
+                    </tr>
+                </table>
+            <!--{else}-->
+                <form method="post" name="frm_review" id="frm_review" action="{url review/member/ac/$ac/in_ajax/$_G[in_ajax]/rand/$_G[random]}">
+                <input type="hidden" name="review[idtype]" value="$idtype" />
+                <input type="hidden" name="review[id]" value="$id" />
+                <input type="hidden" name="review[subject]" value="$subject" />
+                <table width="100%" cellspacing="0" cellpadding="0" {if !$_G[in_ajax]}class="maintable" width="600"{else}class="table"{/if}>
+                    <!--{if !$_G[in_ajax]}-->
+                    <tr>
+                        <td width="100" align="right">点评对象：</td>
+                        <td width="*"><a href="{url $typeinfo[flag]/detail/id/$id}" target="_blank">$subject</a></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <!--{/if}-->
+                    <tr>
+                        <td align="right"><span class="font_1">*</span>总体评价：</td>
+                        <td>{print form_radio('review[best]',array(1=>'好评',0=>'差评'),$detail['best']?$detail['best']:1)}</td></td>
+                    </tr>
+                    <tr>
+                        <td width="100" align="right" valign="top"><span class="font_1">*</span>各项评分：</td>
+                        <td width="*">
+                            <div style="width:100%;">
+                            <style>
+.rating-level, .rating-level a {background:url(http://www.zzlin.com/static/images/star.png) no-repeat scroll 1000px 1000px;}
+.rating-level {background-position:0 0; width:83px; height:16px; position:relative; z-index:1000; top:5px;}
+.shop-rating ul {float:left; margin:0px; padding:0;}
+.rating-level li {display:inline;}
+.rating-level a {line-height:16px; height:16px;        position:absolute; top:0; left:0; text-indent:-999em; *zoom:1; outline:none;}
+
+.rating-level a.one-star { width:16px; z-index:6;}
+.rating-level a.two-stars { width:33px;        z-index:5;}
+.rating-level a.three-stars {width:50px; z-index:4;}
+.rating-level a.four-stars {width:67px;        z-index:3;}
+.rating-level a.five-stars {width:84px;        z-index:2;}
+
+.rating-level a.one-star:hover, a.two-stars:hover, a.three-stars:hover, a.one-star.current-rating , a.two-stars.current-rating, a.three-stars.current-rating {background-position:0 -231px;}
+.rating-level a.four-stars:hover, a.four-stars.current-rating, a.five-stars:hover, a.five-stars.current-rating {background-position:0 -210px;}
+
+.shop-rating {HEIGHT: 30px; OVERFLOW: hidden
+}
+.shop-rating span {height:23px;display:block;line-height:23px;float:left;}
+.shop-rating span.title {text-align:right;MARGIN-RIGHT: 5px}
+
+.shop-rating UL {
+	FLOAT: left
+}
+.shop-rating .result {
+	MARGIN-LEFT: 2px; PADDING-TOP: 2px; float:left;
+}
+.shop-rating .result EM {
+	MARGIN: -2px 5px; FONT-FAMILY: arial; COLOR: #FF3301; FONT-SIZE: 14px;float:left;
+}
+
+</style>
+
+<div id="J_Rating">                                                        
+<!--{loop $review_opts $key $val}-->                                                        
+<DIV class="shop-rating">
+  <SPAN class="title">$val[name]：</SPAN>
+                <UL class="rating-level">
+                  <LI> <A class="one-star {if $detail[$val[flag]]=='1'} current-rating{/if}" star:value="1" star:values="不满意" href="javascript:void(0);">1</A> </LI>
+                  <LI> <A class="two-stars {if $detail[$val[flag]]=='2'} current-rating{/if}" star:value="2"  star:values="需要努力" href="javascript:void(0);">2</A> </LI>
+                  <LI> <A class="three-stars {if $detail[$val[flag]]=='3'} current-rating{/if}" star:value="3" star:values="还算满意" href="javascript:void(0);">3</A> </LI>
+                  <LI> <A class="four-stars {if $detail[$val[flag]]=='4'} current-rating{/if}" star:value="4"  star:values="很满意" href="javascript:void(0);">4</A> </LI>
+                  <LI> <A class="five-stars {if $detail[$val[flag]]=='5'} current-rating{/if}" star:value="5"  star:values="非常满意" href="javascript:void(0);">5</A> </LI>
+                </UL>
+                <SPAN class="result" style="visibility: hidden; "><EM>1</EM></SPAN>
+                <INPUT type="hidden" name="review[{$val[flag]}]" id="J_Star{$val[flag]}" value="{$detail[$val[flag]]}" size="2" class="rank">
+</DIV>                                                        
+<!--{/loop}-->
+</div>
+</div>
+
+
+<SCRIPT type="text/javascript">
+            var selectobj = null;
+		$('.rating-level li a').bind('mouseover',function(){
+			//取当前值
+			selectobj = $('.current-rating',$(this.parentNode.parentNode));
+			//删除所有
+			$('li a',$(this.parentNode.parentNode)).removeClass('current-rating');
+			//显示当前
+			$(this).addClass('current-rating');
+			$('.tips',$(this.parentNode.parentNode.parentNode)).html('');
+			//$('.result',$(this.parentNode.parentNode.parentNode)).css('visibility','hidden');
+			$('.tips',$(this.parentNode.parentNode.parentNode)).css('visibility','visible');
+		}).bind('mouseout',function(){
+			//删除所有
+			$('li a',$(this.parentNode.parentNode)).removeClass('current-rating');
+			//$(this).addClass('current-rating');
+			//恢复设定
+			selectobj.addClass('current-rating');	
+			$('.tips',$(this.parentNode.parentNode.parentNode)).css('visibility','hidden');	
+			//$('.result',$(this.parentNode.parentNode.parentNode)).css('visibility','visible');	 
+		}).bind('click',function(){
+			selectobj = $(this);
+			$('.result em',$(this.parentNode.parentNode.parentNode)).html(selectobj.attr('star:values'));
+			$('.result',$(this.parentNode.parentNode.parentNode)).css('visibility','visible');
+			$.each($('#J_Rating a.current-rating'),
+			function(i,n){
+				$('#J_Starsort'+(i+1)).val($(n).attr('star:value'))	
+				var sum = 0;
+				$("input[class=rank]").each(function() {
+					sum += +this.value;
+				});
+				//alert(sum);
+				$("#zonghe").attr("value",sum);
+			});
+			
+		});
+					</SCRIPT> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">点评标题：</td>
+                        <td><input type="text" name="review[title]" class="t_input" size="40" value="$detail[title]" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" valign="top">
+                            <span class="font_1">*</span>点评内容：<br />
+                        </td>
+                        <td>
+                            <textarea name="review[content]" style="{if $_G[in_ajax]}width:400px;{else}width:90%;{/if}height:120px;padding:5px;" onkeyup="record_charlen(this,$MOD[review_max],'review_content');">$detail[content]</textarea>
+                            <div class="font_1">请将点评内容限制在 $MOD[review_min] - $MOD[review_max] 个字符以内，当前输入：<span id="review_content" class="font_1">{print strlen($detail[content])}</span></div>
+                            <div class="review_picture_upload">
+                                <!--{if $config[use_review_upload_pic]}-->
+                                <span class="update-img-ico"><a href="javascript:;" onclick="review_pic_ui($id);">上传图片</a></span>
+                                <!--{/if}-->
+                                <div id="review_picture">
+                                    <!--{if $detail[pictures]}-->
+                                    <!--{eval $detail[pictures] = unserialize($detail[pictures]);}-->
+                                    <!--{loop $detail[pictures] $picid $pic}-->
+                                    <div id="pic_{$picid}_foo" class="review_picture_op">
+                                        <input type="hidden" name="review[pictures][]" id="pic_$picid" value="$picid" />
+                                        <a href="{URLROOT}/$pic[picture]"><img src="{URLROOT}/$pic[thumb]" /></a>
+                                        <a href="javascript:;" onclick="review_pic_del($picid);">删除</a>
+                                    </div>
+                                    <!--{/loop}-->
+                                    <!--{/if}-->                                    
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!--{if $config['useprice']}-->
+                    <tr>
+                        <td align="right">{if $config[useprice_required]}<span class="font_1">*</span>{/if}$config[useprice_title]：</td>
+                        <td><input type="text" name="review[price]" class="t_input" size="10" value="$detail[price]" />&nbsp;&nbsp;$config[useprice_unit]</td>
+                    </tr>
+                    <!--{/if}-->
+                    <!--{loop $config[taggroup] $val}-->
+                    <tr>
+                        <td align="right">$taggroups[$val][name]：</td>
+                        <!--{eval $detail_tags = $detail['taggroup'] ? @unserialize($detail['taggroup']) : array();}-->
+                        <td>
+                            <!--{if $taggroups[$val][sort]==1}-->
+                            <input type="text" name="review[taggroup][$val]" id="taggroup_$val" size="{if $_G[in_ajax]}35{else}50{/if}" class="t_input" value="{print @implode(',',$detail_tags[$val])}" />&nbsp;多个标签请用逗号","分开
+                            <!--{elseif $taggroups[$val][sort]==2}-->
+                            <!--{eval $tagconfig = explode(',', $taggroups[$val][options]);}-->
+                            <!--{loop $tagconfig $ky $tgval}-->
+                            <input type="checkbox" name="review[taggroup][$val][]" value="$tgval"{if (@in_array($tgval,$detail_tags[$val]))} checked{/if} id="taggroup_{$val}_{$ky}" /><label for="taggroup_{$val}_{$ky}">$tgval</label>&nbsp;
+                            <!--{/loop}-->
+                            <!--{/if}-->
+                        </td>
+                    </tr>
+                    <!--{/loop}-->
+                    <!--{if $ac == 'add' && (!$user->isLogin && $MOD[seccode_review_guest]) || ($user->isLogin && $MOD[seccode_review])}-->
+                    <tr>
+                        <td align="right"><span class="font_1">*</span>验证码：</td>
+                        <td><div id="seccode" style="float:left;"></div><input type="text" name="seccode" onfocus="show_seccode();" class="t_input" /></td>
+                    </tr>
+                    <!--{/if}-->
+                </table>
+                <div class="text_center" id="op_foot">
+                    {if $ac=='edit'}<input type="hidden" name="rid" value="$rid" />{/if}
+                    <!--{if $_G['in_ajax']}-->
+                    <input type="hidden" name="dosubmit" value="yes" />
+                    <button type="button" class="button" onclick="ajaxPost('frm_review', '', 'document_reload');">提交</button>&nbsp;&nbsp;
+                    <button type="reset" class="button">重置</button>
+                    <!--{else}-->
+                    <input type="hidden" name="forward" value="{print get_forward()}" />
+                    <button type="submit" name="dosubmit" value="yes">提交</button>&nbsp;&nbsp;
+                    <button type="reset">重置</button>&nbsp;&nbsp;
+                    <button type="button" onclick="history.go(-1);">返回</button>
+                    <!--{/if}-->
+                </div>
+                </form>
+            <!--{/if}-->
+            </div>
+<!--{if !defined('IN_AJAX')}-->
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="mybottom"></div>
+</div>
+<!--{eval footer();}-->
+<!--{/if}-->
